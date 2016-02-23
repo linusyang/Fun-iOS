@@ -10,7 +10,7 @@
 
 #import "NLAppDelegate.h"
 
-int main(int argc, char * argv[])
+int c_main(int argc, char * argv[])
 {
     @autoreleasepool {
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([NLAppDelegate class]));

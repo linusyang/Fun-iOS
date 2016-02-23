@@ -187,7 +187,7 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
                          relatedBy:NSLayoutRelationEqual
                             toItem:self
                          attribute:NSLayoutAttributeBottom
-                         multiplier:0.0f constant:topInset]];
+                         multiplier:0.0001f constant:topInset]];
     
     [self addConstraint:[NSLayoutConstraint
         constraintWithItem:_textLabel

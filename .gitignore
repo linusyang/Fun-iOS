@@ -6,3 +6,5 @@ build
 
 Podfile.lock
 Pods/
+
+NodelikeDemo/lib*.a

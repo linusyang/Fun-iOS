@@ -28,7 +28,7 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         _showsNavigationToolbar = NO;
-        _URL = [NSURL URLWithString:@"http://nodejs.org/docs/latest/api/"];
+        _URL = [NSURL URLWithString:@"https://github.com/linusyang/fun-lang"];
     }
     return self;
 }

@@ -15,6 +15,8 @@
 #import "PBWebViewController.h"
 
 #import "NLColor.h"
+#import "fun.h"
+#import "jsrt.h"
 
 @interface NLMasterViewController ()
 
@@ -60,7 +62,9 @@
     
     id logger = ^(JSValue *thing) {
         [JSContext.currentArguments enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            NSLog(@"log: %@", [obj toString]);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf output:[obj toString]];
+            });
             [((NLConsoleViewController *)self.consoleViewController) log:[obj toString]];
         }];
     };
@@ -80,9 +84,16 @@
 }
 
 - (void)executeJS:(NSString *)code {
-    JSValue *ret = [_context evaluateScript:code];
-    if (![ret isUndefined]) {
-        [self output:[ret toString]];
+    NSString *jsout = fun2JS(code);
+    if ([jsout hasPrefix:@"!MSG!"]) {
+        NSString *string = [jsout substringFromIndex:5];
+        NSError *error = nil;
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\x1b[^m]*m" options:NSRegularExpressionCaseInsensitive error:&error];
+        NSString *modifiedString = [regex stringByReplacingMatchesInString:string options:0 range:NSMakeRange(0, [string length]) withTemplate:@""];
+        [self error:modifiedString];
+    } else {
+        NSString *runtime = [[NSString alloc] initWithBytes:runtime_min_js length:runtime_min_js_len encoding:NSUTF8StringEncoding];
+        [_context evaluateScript:[runtime stringByAppendingString:jsout]];
     }
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -120,7 +131,7 @@
 
 - (IBAction)showInfo:(id)sender {
     PBWebViewController *docuViewController = [[PBWebViewController alloc] init];
-    docuViewController.URL = [NSURL URLWithString:@"http://nodeapp.org/?utm_source=interpreter&utm_medium=App&utm_campaign=info"];
+    docuViewController.URL = [NSURL URLWithString:@"https://github.com/linusyang"];
     [self.navigationController pushViewController:docuViewController animated:YES];
 }
 
