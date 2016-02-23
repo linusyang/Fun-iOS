@@ -12,6 +12,4 @@ After each execution, a popover will appear containing that result.
 How to compile
 --------------
 
-1. You need to have [CocoaPods](http://cocoapods.org) installed. If you do not have already, run `sudo gem install cocoapods`.
-2. Install the dependencies via `pod install`.
-3. Open `Interpreter.xcworkspace` in Xcode and run!
+Open `Interpreter.xcworkspace` in Xcode and run!

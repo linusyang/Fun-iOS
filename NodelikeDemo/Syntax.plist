@@ -9,7 +9,7 @@
 	<key>documentation_comment_keyword</key>
 	<string>(\{\-|\-\})</string>
 	<key>keyword</key>
-	<string>(?&lt;!\w)(\*|\(\)|data|def|defrec|type|let|letrec|in|case|ret|of|castup|castdn|Int|String|Bool|True|False|if|else|then|x|y|zIndex)(?!\w)</string>
+	<string>(?&lt;!\w)(\*|\(\)|data|def|defrec|type|let|letrec|in|case|ret|of|castup|castdn|Int|String|Bool|True|False|if|else|then)(?!\w)</string>
 	<key>number</key>
 	<string>(?&lt;!\w)(((0x[0-9a-fA-F]+)|(([0-9]+\.?[0-9]*|\.[0-9]+)([eE][-+]?[0-9]+)?))[fFlLuU]{0,2})(?!\w)</string>
 	<key>string</key>

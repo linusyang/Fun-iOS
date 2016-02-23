@@ -7,18 +7,16 @@
 //
 
 #import "FHSegmentedViewController.h"
+#import <JavaScriptCore/JavaScriptCore.h>
 
-#import "NLContext.h"
-
-@interface NLMasterViewController : FHSegmentedViewController
+@interface NLMasterViewController : FHSegmentedViewController <UIAlertViewDelegate>
 
 @property UIViewController *editorViewController;
 @property UIViewController *consoleViewController;
 @property UIViewController *documentationViewController;
+@property NSString *jsRuntime;
 
-@property NLContext *context;
-
-@property UIBackgroundTaskIdentifier backgroundTask;
+@property JSContext *context;
 
 - (void)executeJS:(NSString *)code;
 

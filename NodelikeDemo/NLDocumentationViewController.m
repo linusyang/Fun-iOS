@@ -7,6 +7,7 @@
 //
 
 #import "NLDocumentationViewController.h"
+#import "TUSafariActivity.h"
 
 @interface NLDocumentationViewController () <UIPopoverControllerDelegate>
 
@@ -27,7 +28,7 @@
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        _showsNavigationToolbar = NO;
+        _showsNavigationToolbar = YES;
         _URL = [NSURL URLWithString:@"https://github.com/linusyang/fun-lang"];
     }
     return self;
@@ -37,13 +38,6 @@
 {
     NSURLRequest *request = [NSURLRequest requestWithURL:self.URL];
     [self.webView loadRequest:request];
-    
-    if (self.navigationController.toolbarHidden) {
-        self.toolbarPreviouslyHidden = YES;
-        if (self.showsNavigationToolbar) {
-            [self.navigationController setToolbarHidden:NO animated:YES];
-        }
-    }
 }
 
 - (void)clear
@@ -58,15 +52,42 @@
 {
     [super viewDidLoad];
     self.webView.scalesPageToFit = YES;
+    self.webView.delegate = self;
+    [self.webView setOpaque:NO];
+    self.webView.backgroundColor = [UIColor clearColor];
+    [self setupToolBarItems];
+    
+    TUSafariActivity *safariActivity = [[TUSafariActivity alloc] init];
+    self.applicationActivities = @[safariActivity];
+    
+    if (self.URL) {
+        [self load];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self setupToolBarItems];
-    self.webView.delegate = self;
-    if (self.URL) {
-        [self load];
+    /* recalculate frame size */
+    CGSize size = [UIScreen mainScreen].bounds.size;
+    UIApplication *application = [UIApplication sharedApplication];
+    if (UIInterfaceOrientationIsLandscape(application.statusBarOrientation))
+        size = CGSizeMake(size.height, size.width);
+    if (!application.statusBarHidden)
+        size.height -= MIN(application.statusBarFrame.size.width,
+                           application.statusBarFrame.size.height);
+    
+    CGRect frame = self.view.frame;
+    frame.size.height = size.height -
+    self.navigationController.navigationBar.frame.size.height -
+    self.navigationController.toolbar.frame.size.height;
+    self.view.frame = frame;
+    
+    if (self.navigationController.toolbarHidden) {
+        self.toolbarPreviouslyHidden = YES;
+        if (self.showsNavigationToolbar) {
+            [self.navigationController setToolbarHidden:NO animated:NO];
+        }
     }
 }
 
@@ -78,7 +99,7 @@
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     
     if (self.toolbarPreviouslyHidden && self.showsNavigationToolbar) {
-        [self.navigationController setToolbarHidden:YES animated:YES];
+        [self.navigationController setToolbarHidden:YES animated:NO];
     }
 }
 
@@ -174,7 +195,7 @@
                                                                             action:nil];
     space_.width = 60.0f;
 
-    self.navigationController.toolbarItems = @[self.stopLoadingButton, space, self.backButton, space_, self.forwardButton, space, actionButton];
+    self.parentViewController.toolbarItems = @[self.stopLoadingButton, space, self.backButton, space_, self.forwardButton, space, actionButton];
 }
 
 - (void)toggleState
@@ -182,13 +203,13 @@
     self.backButton.enabled = self.webView.canGoBack;
     self.forwardButton.enabled = self.webView.canGoForward;
     
-    NSMutableArray *toolbarItems = [self.navigationController.toolbarItems mutableCopy];
+    NSMutableArray *toolbarItems = [self.parentViewController.toolbarItems mutableCopy];
     if (self.webView.loading) {
         toolbarItems[0] = self.stopLoadingButton;
     } else {
         toolbarItems[0] = self.reloadButton;
     }
-    self.navigationController.toolbarItems = [toolbarItems copy];
+    self.parentViewController.toolbarItems = [toolbarItems copy];
 }
 
 - (void)finishLoad
@@ -226,7 +247,7 @@
             self.activitiyPopoverController = [[UIPopoverController alloc] initWithContentViewController:vc];
         }
         self.activitiyPopoverController.delegate = self;
-        [self.activitiyPopoverController presentPopoverFromBarButtonItem:[self.toolbarItems lastObject]
+        [self.activitiyPopoverController presentPopoverFromBarButtonItem:[self.parentViewController.toolbarItems lastObject]
                                                 permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
 }

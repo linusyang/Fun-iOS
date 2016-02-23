@@ -29,9 +29,7 @@
 @implementation NLTextView
 
 + (instancetype)textViewForView:(UIView *)view {
-    CGRect frame = view.frame;
-    frame.size.height -= 64;
-    return [[self alloc] initWithFrame:frame];
+    return [[self alloc] initWithFrame:view.frame];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -40,7 +38,7 @@
     self.gutterBackgroundColor = [UIColor clearColor];
     self.gutterLineColor       = [UIColor clearColor];
 
-    self.font = [UIFont fontWithName:@"Menlo" size:14.0];
+    self.font = [UIFont fontWithName:@"Menlo" size:13.0];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -62,20 +60,24 @@
 
 
 - (void)keyboardWillShow:(NSNotification *)notification {
+    self.showingKeyboard = YES;
     [self moveTextViewForKeyboard:notification up:YES];
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
+    self.showingKeyboard = NO;
     [self moveTextViewForKeyboard:notification up:NO];
 }
 
 - (void)keyboardDidChangeFrame:(NSNotification *)notification {
-    CGRect keyboardEndFrame, newFrame, keyboardFrame;
-    [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardEndFrame];
-    newFrame      = self.superview.bounds;
-    keyboardFrame = [self.superview convertRect:keyboardEndFrame toView:nil];
-    newFrame.size.height -= keyboardFrame.size.height;
-    self.frame = newFrame;
+    if (self.showingKeyboard) {
+        CGRect keyboardEndFrame, newFrame, keyboardFrame;
+        [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardEndFrame];
+        newFrame      = self.superview.bounds;
+        keyboardFrame = [self.superview convertRect:keyboardEndFrame toView:nil];
+        newFrame.size.height -= keyboardFrame.size.height;
+        self.frame = newFrame;
+    }
 }
 
 - (void)orientationChanged:(NSNotification *)notification {

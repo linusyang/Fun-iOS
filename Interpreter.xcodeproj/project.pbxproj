@@ -7,16 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		41F76CC626CB4B9D9C35557A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EFDE6E040EB45CAB99BE307 /* libPods.a */; };
 		4B3418161C7C2CA700D0CE76 /* libfun_hs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B3418141C7C2CA700D0CE76 /* libfun_hs.a */; };
 		4B3418171C7C2CA700D0CE76 /* libfun_main.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B3418151C7C2CA700D0CE76 /* libfun_main.a */; };
 		4B34181C1C7C2E3200D0CE76 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B34181A1C7C2E0D00D0CE76 /* libiconv.tbd */; };
-		B50A490118C2C15D00656FA3 /* node_modules in Resources */ = {isa = PBXBuildFile; fileRef = B50A490018C2C15D00656FA3 /* node_modules */; };
+		4BF706761C7CC7BB00E993CD /* TUSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF706751C7CC7BB00E993CD /* TUSafariActivity.m */; };
+		4BF7067B1C7CC9D900E993CD /* NLDocumentationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF7067A1C7CC9D900E993CD /* NLDocumentationViewController.m */; };
 		B51198D1183D2DFE008B2DE5 /* NLColor.m in Sources */ = {isa = PBXBuildFile; fileRef = B51198D0183D2DFE008B2DE5 /* NLColor.m */; };
 		B51198D5183D3E55008B2DE5 /* NLTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B51198D4183D3E55008B2DE5 /* NLTextView.m */; };
 		B51198DD183D7E64008B2DE5 /* Syntax.plist in Resources */ = {isa = PBXBuildFile; fileRef = B51198DC183D7E64008B2DE5 /* Syntax.plist */; };
 		B54C1F97180D488D0051F826 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5B44654180AB78E009ADEF9 /* Main.storyboard */; };
-		B588412B182D1D83007C5B0F /* NLDocumentationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B588412A182D1D83007C5B0F /* NLDocumentationViewController.m */; };
 		B597EB7A18396ADB00DC767C /* CSNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B597EB7918396ADB00DC767C /* CSNotificationView.m */; };
 		B597EB7C18396AE400DC767C /* CSNotificationView.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B597EB7B18396AE400DC767C /* CSNotificationView.xcassets */; };
 		B5B44643180AB78E009ADEF9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B44642180AB78E009ADEF9 /* Foundation.framework */; };
@@ -27,8 +26,6 @@
 		B5B44653180AB78E009ADEF9 /* NLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B44652180AB78E009ADEF9 /* NLAppDelegate.m */; };
 		B5B44659180AB78E009ADEF9 /* NLEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B44658180AB78E009ADEF9 /* NLEditorViewController.m */; };
 		B5B4465B180AB78E009ADEF9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5B4465A180AB78E009ADEF9 /* Images.xcassets */; };
-		B5C056251846A4A400E8A4B1 /* SEJSONViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C056241846A4A400E8A4B1 /* SEJSONViewController.m */; };
-		B5C3ABC218BA796800F927B6 /* PBWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C3ABC118BA796700F927B6 /* PBWebViewController.m */; };
 		B5CF829F1819B9EC0095AE7E /* KOKeyboardRow.m in Sources */ = {isa = PBXBuildFile; fileRef = B5CF82901819B9EC0095AE7E /* KOKeyboardRow.m */; };
 		B5CF82A01819B9EC0095AE7E /* KOSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B5CF82921819B9EC0095AE7E /* KOSwipeButton.m */; };
 		B5FD81211897EE97007FB460 /* CYRLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B5FD811A1897EE97007FB460 /* CYRLayoutManager.m */; };
@@ -47,17 +44,17 @@
 		4B3418181C7C2CB400D0CE76 /* fun.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fun.h; sourceTree = "<group>"; };
 		4B3418191C7C2CB400D0CE76 /* jsrt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jsrt.h; sourceTree = "<group>"; };
 		4B34181A1C7C2E0D00D0CE76 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
-		7FBE56915B121D5FE0A9819D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		8EFDE6E040EB45CAB99BE307 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		B50A490018C2C15D00656FA3 /* node_modules */ = {isa = PBXFileReference; lastKnownFileType = folder; path = node_modules; sourceTree = "<group>"; };
+		4BF706741C7CC7BB00E993CD /* TUSafariActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUSafariActivity.h; sourceTree = "<group>"; };
+		4BF706751C7CC7BB00E993CD /* TUSafariActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUSafariActivity.m; sourceTree = "<group>"; };
+		4BF706771C7CC96000E993CD /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		4BF706791C7CC9D900E993CD /* NLDocumentationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NLDocumentationViewController.h; sourceTree = "<group>"; };
+		4BF7067A1C7CC9D900E993CD /* NLDocumentationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NLDocumentationViewController.m; sourceTree = "<group>"; };
 		B51198CF183D2DFE008B2DE5 /* NLColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NLColor.h; sourceTree = "<group>"; };
 		B51198D0183D2DFE008B2DE5 /* NLColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NLColor.m; sourceTree = "<group>"; };
 		B51198D3183D3E55008B2DE5 /* NLTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NLTextView.h; sourceTree = "<group>"; };
 		B51198D4183D3E55008B2DE5 /* NLTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NLTextView.m; sourceTree = "<group>"; };
 		B51198DC183D7E64008B2DE5 /* Syntax.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Syntax.plist; sourceTree = "<group>"; };
 		B54C1F95180D37C80051F826 /* libm.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libm.dylib; path = usr/lib/libm.dylib; sourceTree = SDKROOT; };
-		B5884129182D1D83007C5B0F /* NLDocumentationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NLDocumentationViewController.h; sourceTree = "<group>"; };
-		B588412A182D1D83007C5B0F /* NLDocumentationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NLDocumentationViewController.m; sourceTree = "<group>"; };
 		B597EB7818396ADB00DC767C /* CSNotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSNotificationView.h; sourceTree = "<group>"; };
 		B597EB7918396ADB00DC767C /* CSNotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSNotificationView.m; sourceTree = "<group>"; };
 		B597EB7B18396AE400DC767C /* CSNotificationView.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CSNotificationView.xcassets; sourceTree = "<group>"; };
@@ -77,10 +74,6 @@
 		B5B44658180AB78E009ADEF9 /* NLEditorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NLEditorViewController.m; sourceTree = "<group>"; };
 		B5B4465A180AB78E009ADEF9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B5B44661180AB78E009ADEF9 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		B5C056231846A4A400E8A4B1 /* SEJSONViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEJSONViewController.h; sourceTree = "<group>"; };
-		B5C056241846A4A400E8A4B1 /* SEJSONViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEJSONViewController.m; sourceTree = "<group>"; };
-		B5C3ABC018BA796700F927B6 /* PBWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBWebViewController.h; sourceTree = "<group>"; };
-		B5C3ABC118BA796700F927B6 /* PBWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBWebViewController.m; sourceTree = "<group>"; };
 		B5CF828F1819B9EC0095AE7E /* KOKeyboardRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KOKeyboardRow.h; path = NodelikeDemo/Vendor/KOKeyboard/KOKeyboardRow.h; sourceTree = SOURCE_ROOT; };
 		B5CF82901819B9EC0095AE7E /* KOKeyboardRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KOKeyboardRow.m; path = NodelikeDemo/Vendor/KOKeyboard/KOKeyboardRow.m; sourceTree = SOURCE_ROOT; };
 		B5CF82911819B9EC0095AE7E /* KOSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KOSwipeButton.h; path = NodelikeDemo/Vendor/KOKeyboard/KOSwipeButton.h; sourceTree = SOURCE_ROOT; };
@@ -99,7 +92,6 @@
 		B5FD812918986190007FB460 /* NLMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NLMasterViewController.m; sourceTree = "<group>"; };
 		B5FD812B1898686F007FB460 /* NLConsoleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NLConsoleViewController.h; sourceTree = "<group>"; };
 		B5FD812C1898686F007FB460 /* NLConsoleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NLConsoleViewController.m; sourceTree = "<group>"; };
-		C815032B24C06CF2B913EFFB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		EC774F6219F8C54E009601A5 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -114,30 +106,18 @@
 				B5B44643180AB78E009ADEF9 /* Foundation.framework in Frameworks */,
 				4B3418161C7C2CA700D0CE76 /* libfun_hs.a in Frameworks */,
 				4B3418171C7C2CA700D0CE76 /* libfun_main.a in Frameworks */,
-				41F76CC626CB4B9D9C35557A /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5CC787AE903E133D5AE0EBDC /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				7FBE56915B121D5FE0A9819D /* Pods.debug.xcconfig */,
-				C815032B24C06CF2B913EFFB /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		B5B44636180AB78E009ADEF9 = {
 			isa = PBXGroup;
 			children = (
-				B50A490018C2C15D00656FA3 /* node_modules */,
 				B5B44648180AB78E009ADEF9 /* NodelikeDemo */,
 				B5B44641180AB78E009ADEF9 /* Frameworks */,
 				B5B44640180AB78E009ADEF9 /* Products */,
-				5CC787AE903E133D5AE0EBDC /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -152,6 +132,7 @@
 		B5B44641180AB78E009ADEF9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4BF706771C7CC96000E993CD /* WebKit.framework */,
 				4B34181A1C7C2E0D00D0CE76 /* libiconv.tbd */,
 				4B3418141C7C2CA700D0CE76 /* libfun_hs.a */,
 				4B3418151C7C2CA700D0CE76 /* libfun_main.a */,
@@ -161,7 +142,6 @@
 				B5B44644180AB78E009ADEF9 /* CoreGraphics.framework */,
 				B5B44646180AB78E009ADEF9 /* UIKit.framework */,
 				B5B44661180AB78E009ADEF9 /* XCTest.framework */,
-				8EFDE6E040EB45CAB99BE307 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -196,14 +176,12 @@
 				B5B44658180AB78E009ADEF9 /* NLEditorViewController.m */,
 				B5FD812B1898686F007FB460 /* NLConsoleViewController.h */,
 				B5FD812C1898686F007FB460 /* NLConsoleViewController.m */,
-				B5884129182D1D83007C5B0F /* NLDocumentationViewController.h */,
-				B588412A182D1D83007C5B0F /* NLDocumentationViewController.m */,
-				B5C3ABC018BA796700F927B6 /* PBWebViewController.h */,
-				B5C3ABC118BA796700F927B6 /* PBWebViewController.m */,
-				B5C056231846A4A400E8A4B1 /* SEJSONViewController.h */,
-				B5C056241846A4A400E8A4B1 /* SEJSONViewController.m */,
+				4BF706791C7CC9D900E993CD /* NLDocumentationViewController.h */,
+				4BF7067A1C7CC9D900E993CD /* NLDocumentationViewController.m */,
 				B597EB7818396ADB00DC767C /* CSNotificationView.h */,
 				B597EB7918396ADB00DC767C /* CSNotificationView.m */,
+				4BF706741C7CC7BB00E993CD /* TUSafariActivity.h */,
+				4BF706751C7CC7BB00E993CD /* TUSafariActivity.m */,
 				B5FD8125189860DB007FB460 /* FHSegmentedViewController.h */,
 				B5FD8126189860DB007FB460 /* FHSegmentedViewController.m */,
 				B597EB7B18396AE400DC767C /* CSNotificationView.xcassets */,
@@ -233,15 +211,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B5B44671180AB78E009ADEF9 /* Build configuration list for PBXNativeTarget "Fun" */;
 			buildPhases = (
-				4B34181D1C7C32BF00D0CE76 /* Run Script */,
-				2A226F2218919AC300F58AE6 /* Set CFBundleVersion to current Git Commit Hash */,
-				5A1AFDF162304FC08D9AD807 /* Check Pods Manifest.lock */,
+				4B34181D1C7C32BF00D0CE76 /* Extract Static Libraries */,
 				B5B4463B180AB78E009ADEF9 /* Sources */,
 				B5B4463C180AB78E009ADEF9 /* Frameworks */,
-				B50A497318C7624B00656FA3 /* Clean node_modules */,
 				B5B4463D180AB78E009ADEF9 /* Resources */,
-				C244253F309047989B007737 /* Copy Pods Resources */,
-				OBJCLEANCUSTOMRUNSCRIPTT /* Objective-Clean Run Script */,
 			);
 			buildRules = (
 			);
@@ -260,7 +233,7 @@
 			attributes = {
 				CLASSPREFIX = NL;
 				LastUpgradeCheck = 0720;
-				ORGANIZATIONNAME = "Sam Rijs";
+				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					B5B4463E180AB78E009ADEF9 = {
 						DevelopmentTeam = HW7L7998NL;
@@ -295,7 +268,6 @@
 				B54C1F97180D488D0051F826 /* Main.storyboard in Resources */,
 				EC774F6319F8C54E009601A5 /* LaunchScreen.xib in Resources */,
 				B5B4465B180AB78E009ADEF9 /* Images.xcassets in Resources */,
-				B50A490118C2C15D00656FA3 /* node_modules in Resources */,
 				B5B4464D180AB78E009ADEF9 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -303,91 +275,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2A226F2218919AC300F58AE6 /* Set CFBundleVersion to current Git Commit Hash */ = {
+		4B34181D1C7C32BF00D0CE76 /* Extract Static Libraries */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Set CFBundleVersion to current Git Commit Hash";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ $CONFIGURATION == Release ] || [ $CONFIGURATION == TestFlight ]; then\n    echo \"Bumping build number...\"\n    plist=${PROJECT_DIR}/${INFOPLIST_FILE}\n\n    # increment the build number (ie 115 to 116)\n    buildnum=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${plist}\")\n    if [[ \"${buildnum}\" == \"\" ]]; then\n        echo \"No build number in $plist\"\n        exit 2\n    fi\n\n    buildnum=$(expr $buildnum + 1)\n    /usr/libexec/Plistbuddy -c \"Set CFBundleVersion $buildnum\" \"${plist}\"\n    echo \"Bumped build number to $buildnum\"\n\nelse\n    echo $CONFIGURATION \" build - Not bumping build number.\"\nfi";
-		};
-		4B34181D1C7C32BF00D0CE76 /* Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run Script";
+			name = "Extract Static Libraries";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "ROOT=\"$PROJECT_DIR/NodelikeDemo\"\nif [ -f \"$ROOT/libfun_hs.a\" ] && [ -f \"$ROOT/libfun_main.a\" ]; then\n    exit 0\nelse\n    tar jxf \"$ROOT/libfun.tar.bz2\" -C \"$ROOT\"\nfi\n";
-		};
-		5A1AFDF162304FC08D9AD807 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		B50A497318C7624B00656FA3 /* Clean node_modules */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Clean node_modules";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "rm -rf \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.app/node_modules\"";
-		};
-		C244253F309047989B007737 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		OBJCLEANCUSTOMRUNSCRIPTT /* Objective-Clean Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Objective-Clean Run Script";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "if [[ -z ${SKIP_OBJCLEAN} || ${SKIP_OBJCLEAN} != 1 ]]; then\nif [[ -d \"${LOCAL_APPS_DIR}/Objective-Clean.app\" ]]; then \n\"${LOCAL_APPS_DIR}\"/Objective-Clean.app/Contents/Resources/ObjClean.app/Contents/MacOS/ObjClean \"${SRCROOT}\"?NL \nelse\necho \"warning: You have to install and set up Objective-Clean to use its features!\" \nfi\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -398,8 +298,7 @@
 			files = (
 				B5B44659180AB78E009ADEF9 /* NLEditorViewController.m in Sources */,
 				B5B44653180AB78E009ADEF9 /* NLAppDelegate.m in Sources */,
-				B5C056251846A4A400E8A4B1 /* SEJSONViewController.m in Sources */,
-				B588412B182D1D83007C5B0F /* NLDocumentationViewController.m in Sources */,
+				4BF706761C7CC7BB00E993CD /* TUSafariActivity.m in Sources */,
 				B597EB7A18396ADB00DC767C /* CSNotificationView.m in Sources */,
 				B51198D5183D3E55008B2DE5 /* NLTextView.m in Sources */,
 				B5FD81211897EE97007FB460 /* CYRLayoutManager.m in Sources */,
@@ -407,11 +306,11 @@
 				B5FD812D1898686F007FB460 /* NLConsoleViewController.m in Sources */,
 				B5FD812A18986190007FB460 /* NLMasterViewController.m in Sources */,
 				B5FD81221897EE97007FB460 /* CYRTextStorage.m in Sources */,
-				B5C3ABC218BA796800F927B6 /* PBWebViewController.m in Sources */,
 				B5B4464F180AB78E009ADEF9 /* main.m in Sources */,
 				B5FD8127189860DB007FB460 /* FHSegmentedViewController.m in Sources */,
 				B5FD81241897EE97007FB460 /* CYRToken.m in Sources */,
 				B51198D1183D2DFE008B2DE5 /* NLColor.m in Sources */,
+				4BF7067B1C7CC9D900E993CD /* NLDocumentationViewController.m in Sources */,
 				B5CF82A01819B9EC0095AE7E /* KOSwipeButton.m in Sources */,
 				B5CF829F1819B9EC0095AE7E /* KOKeyboardRow.m in Sources */,
 			);
@@ -518,7 +417,6 @@
 		};
 		B5B44672180AB78E009ADEF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7FBE56915B121D5FE0A9819D /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -544,7 +442,6 @@
 		};
 		B5B44673180AB78E009ADEF9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C815032B24C06CF2B913EFFB /* Pods.release.xcconfig */;
 			buildSettings = {
 				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

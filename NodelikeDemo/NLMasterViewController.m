@@ -7,16 +7,15 @@
 //
 
 #import "NLMasterViewController.h"
-
 #import "NLEditorViewController.h"
 #import "NLConsoleViewController.h"
-
 #import "CSNotificationView.h"
-#import "PBWebViewController.h"
-
 #import "NLColor.h"
 #import "fun.h"
 #import "jsrt.h"
+
+typedef bool (*JSShouldTerminateCallback) (JSContextRef ctx, void* context);
+void JSContextGroupSetExecutionTimeLimit(JSContextGroupRef, double limit, JSShouldTerminateCallback, void* context);
 
 @interface NLMasterViewController ()
 
@@ -41,22 +40,19 @@
     self.editorViewController  = [self.storyboard instantiateViewControllerWithIdentifier:@"editorViewController"];
     self.consoleViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"consoleViewController"];
     self.documentationViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"documentationViewController"];
-    
-	[self setViewControllers:@[self.editorViewController, self.consoleViewController]];
-    [self pushViewController:self.documentationViewController];
-    
+	[self setViewControllers:@[self.editorViewController, self.consoleViewController, self.documentationViewController]];
     [self setupStyle];
     
     __weak NLMasterViewController *weakSelf = self;
     
-    _context = [[NLContext alloc] initWithVirtualMachine:[[JSVirtualMachine alloc] init]];
-    
-    [NLContext attachToContext:_context];
+    _context = [[JSContext alloc] initWithVirtualMachine:[[JSVirtualMachine alloc] init]];
+    _jsRuntime = [[NSString alloc] initWithBytes:runtime_min_js
+                                          length:runtime_min_js_len
+                                        encoding:NSUTF8StringEncoding];
     
     _context.exceptionHandler = ^(JSContext *c, JSValue *e) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf error:[e toString]];
-            NSLog(@"%@ stack: %@", e, [e valueForProperty:@"stack"]);
         });
     };
     
@@ -70,47 +66,39 @@
     };
     _context[@"console"] = @{@"log": logger, @"error": logger};
     
-    //[_context evaluateScript:@"process.env['NODE_DEBUG']='module'"];
-
+    JSGlobalContextRef context = _context.JSGlobalContextRef;
+    JSContextGroupRef group = JSContextGetGroup(context);
+    JSContextGroupSetExecutionTimeLimit(group, 10.0, NULL, NULL);
 }
 
 - (void)setupStyle {
-    
-    //self.navigationController.navigationBar.tintColor    = [NLColor greenColor];
-    //self.navigationController.navigationBar.barTintColor = [NLColor blackColor];
     self.navigationController.toolbar.tintColor          = [NLColor blackColor];
     self.navigationController.toolbar.barTintColor       = [[NLColor whiteColor] colorWithAlphaComponent:0.5];
-    
 }
 
 - (void)executeJS:(NSString *)code {
-    NSString *jsout = fun2JS(code);
-    if ([jsout hasPrefix:@"!MSG!"]) {
-        NSString *string = [jsout substringFromIndex:5];
-        NSError *error = nil;
-        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\x1b[^m]*m" options:NSRegularExpressionCaseInsensitive error:&error];
-        NSString *modifiedString = [regex stringByReplacingMatchesInString:string options:0 range:NSMakeRange(0, [string length]) withTemplate:@""];
-        [self error:modifiedString];
-    } else {
-        NSString *runtime = [[NSString alloc] initWithBytes:runtime_min_js length:runtime_min_js_len encoding:NSUTF8StringEncoding];
-        [_context evaluateScript:[runtime stringByAppendingString:jsout]];
-    }
-    
+    __weak NLMasterViewController *weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        self.backgroundTask = [UIApplication.sharedApplication beginBackgroundTaskWithExpirationHandler:^{
-            NSLog(@"beginBG called");
-            [UIApplication.sharedApplication endBackgroundTask:self.backgroundTask];
-            self.backgroundTask = UIBackgroundTaskInvalid;
-        }];
-        
-        [NLContext runEventLoopSync];
-        
-        [UIApplication.sharedApplication endBackgroundTask:self.backgroundTask];
-        self.backgroundTask = UIBackgroundTaskInvalid;
-
+        NSString *jsout = fun2JS(code);
+        if ([jsout hasPrefix:@"!MSG!"]) {
+            NSString *string = [jsout substringFromIndex:5];
+            NSError *error = nil;
+            NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\x1b[^m]*m" options:NSRegularExpressionCaseInsensitive error:&error];
+            NSString *modifiedString = [regex stringByReplacingMatchesInString:string options:0 range:NSMakeRange(0, [string length]) withTemplate:@""];
+            NSString *finalString = [modifiedString hasPrefix:@"*** "] ? [modifiedString substringFromIndex:4] : modifiedString;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf error:finalString];
+            });
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                weakSelf.navigationItem.leftBarButtonItem.enabled = NO;
+            });
+            [_context evaluateScript:[_jsRuntime stringByAppendingString:jsout]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                weakSelf.navigationItem.leftBarButtonItem.enabled = YES;
+            });
+    }
     });
-
 }
 
 - (void)output:(NSString *)message {
@@ -126,13 +114,20 @@
 }
 
 - (IBAction)execute:(id)sender {
-    [self executeJS:((NLEditorViewController *)self.editorViewController).input.text];
+    NLTextView *textView = ((NLEditorViewController *)self.editorViewController).input;
+    [textView endEditing:YES];
+    [self executeJS:textView.text];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://linusyang.github.io/fun-lang"]];
+    }
 }
 
 - (IBAction)showInfo:(id)sender {
-    PBWebViewController *docuViewController = [[PBWebViewController alloc] init];
-    docuViewController.URL = [NSURL URLWithString:@"https://github.com/linusyang"];
-    [self.navigationController pushViewController:docuViewController animated:YES];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Info" message:@"Fun Interpreter v0.1\nAuthor: Linus Yang (@linusyang)" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Visit Website", nil];
+    [alert show];
 }
 
 

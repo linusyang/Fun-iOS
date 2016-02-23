@@ -243,7 +243,11 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
         
         __block typeof(self) weakself = self;
         [UIView animateWithDuration:animationDuration animations:^{
-            [weakself setFrame:endFrame];
+            if (visible) {
+                [weakself setFrame:endFrame];
+            } else {
+                [weakself setAlpha:0.0f];
+            }
         } completion:^(BOOL finished) {
             if (!visible) {
                 [weakself removeFromSuperview];

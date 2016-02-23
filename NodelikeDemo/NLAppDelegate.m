@@ -8,8 +8,6 @@
 
 #import "NLAppDelegate.h"
 
-#import "NLContext.h"
-
 @implementation NLAppDelegate {
     NSString *scriptToLoad;
 }

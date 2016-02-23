@@ -11,7 +11,6 @@
 #import "KOKeyboardRow.h"
 
 #import "NLColor.h"
-#import "NLContext.h"
 
 @implementation NLEditorViewController
 
@@ -32,6 +31,22 @@
     
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(fileOpenTriggered:) name:@"NLFileOpen" object:nil];
 
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    /* recalculate frame size */
+    CGSize size = [UIScreen mainScreen].bounds.size;
+    UIApplication *application = [UIApplication sharedApplication];
+    if (UIInterfaceOrientationIsLandscape(application.statusBarOrientation))
+        size = CGSizeMake(size.height, size.width);
+    if (!application.statusBarHidden)
+        size.height -= MIN(application.statusBarFrame.size.width,
+                           application.statusBarFrame.size.height);
+    
+    CGRect frame = self.view.frame;
+    frame.size.height = size.height -
+    self.navigationController.navigationBar.frame.size.height;
+    self.view.frame = frame;
 }
 
 - (void)viewDidAppear:(BOOL)animated {

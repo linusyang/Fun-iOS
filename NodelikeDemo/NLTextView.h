@@ -32,5 +32,6 @@
 
 @property NSDictionary *highlightDefinition;
 @property (nonatomic) NSDictionary *highlightTheme;
+@property BOOL showingKeyboard;
 
 @end

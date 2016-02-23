@@ -10,7 +10,7 @@
 
 #import "NLMasterViewController.h"
 
-@interface NLConsoleViewController : UIViewController
+@interface NLConsoleViewController : UIViewController <UIAlertViewDelegate, UITextViewDelegate>
 
 @property NLMasterViewController *masterViewController;
 
