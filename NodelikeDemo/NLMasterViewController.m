@@ -77,6 +77,7 @@ void JSContextGroupSetExecutionTimeLimit(JSContextGroupRef, double limit, JSShou
 }
 
 - (void)executeJS:(NSString *)code {
+    self.navigationItem.leftBarButtonItem.enabled = NO;
     __weak NLMasterViewController *weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSString *jsout = fun2JS(code);
@@ -90,14 +91,11 @@ void JSContextGroupSetExecutionTimeLimit(JSContextGroupRef, double limit, JSShou
                 [weakSelf error:finalString];
             });
         } else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                weakSelf.navigationItem.leftBarButtonItem.enabled = NO;
-            });
             [_context evaluateScript:[_jsRuntime stringByAppendingString:jsout]];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                weakSelf.navigationItem.leftBarButtonItem.enabled = YES;
-            });
-    }
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            weakSelf.navigationItem.leftBarButtonItem.enabled = YES;
+        });
     });
 }
 
