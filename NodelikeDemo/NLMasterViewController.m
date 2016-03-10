@@ -23,13 +23,59 @@ void JSContextGroupSetExecutionTimeLimit(JSContextGroupRef, double limit, JSShou
 
 @implementation NLMasterViewController
 
+- (void)customInit
+{
+    __weak NLMasterViewController *weakSelf = self;
+    
+    
+    _jsRuntime = [[NSString alloc] initWithBytes:runtime_min_js
+                                          length:runtime_min_js_len
+                                        encoding:NSUTF8StringEncoding];
+    
+    _logger = ^(JSValue *thing) {
+        [JSContext.currentArguments enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf output:[obj toString]];
+            });
+            [((NLConsoleViewController *)weakSelf.consoleViewController) log:[obj toString]];
+        }];
+    };
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self customInit];
+    }
+    return self;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        [self customInit];
     }
     return self;
+}
+
+- (JSContext *)createJSContext
+{
+    JSContext *context = [[JSContext alloc] initWithVirtualMachine:[[JSVirtualMachine alloc] init]];
+    __weak NLMasterViewController *weakSelf = self;
+    context.exceptionHandler = ^(JSContext *c, JSValue *e) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf error:[e toString]];
+        });
+    };
+    context[@"console"] = @{@"log": _logger, @"error": _logger};
+    
+    JSGlobalContextRef ctx = context.JSGlobalContextRef;
+    JSContextGroupRef group = JSContextGetGroup(ctx);
+    JSContextGroupSetExecutionTimeLimit(group, 3.0, NULL, NULL);
+    return context;
 }
 
 - (void)viewDidLoad
@@ -42,33 +88,6 @@ void JSContextGroupSetExecutionTimeLimit(JSContextGroupRef, double limit, JSShou
     self.documentationViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"documentationViewController"];
 	[self setViewControllers:@[self.editorViewController, self.consoleViewController, self.documentationViewController]];
     [self setupStyle];
-    
-    __weak NLMasterViewController *weakSelf = self;
-    
-    _context = [[JSContext alloc] initWithVirtualMachine:[[JSVirtualMachine alloc] init]];
-    _jsRuntime = [[NSString alloc] initWithBytes:runtime_min_js
-                                          length:runtime_min_js_len
-                                        encoding:NSUTF8StringEncoding];
-    
-    _context.exceptionHandler = ^(JSContext *c, JSValue *e) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf error:[e toString]];
-        });
-    };
-    
-    id logger = ^(JSValue *thing) {
-        [JSContext.currentArguments enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf output:[obj toString]];
-            });
-            [((NLConsoleViewController *)self.consoleViewController) log:[obj toString]];
-        }];
-    };
-    _context[@"console"] = @{@"log": logger, @"error": logger};
-    
-    JSGlobalContextRef context = _context.JSGlobalContextRef;
-    JSContextGroupRef group = JSContextGetGroup(context);
-    JSContextGroupSetExecutionTimeLimit(group, 10.0, NULL, NULL);
 }
 
 - (void)setupStyle {
@@ -77,6 +96,9 @@ void JSContextGroupSetExecutionTimeLimit(JSContextGroupRef, double limit, JSShou
 }
 
 - (void)executeJS:(NSString *)code {
+    if (_context == nil) {
+        _context = [self createJSContext];
+    }
     self.navigationItem.leftBarButtonItem.enabled = NO;
     __weak NLMasterViewController *weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -106,6 +128,10 @@ void JSContextGroupSetExecutionTimeLimit(JSContextGroupRef, double limit, JSShou
 }
 
 - (void)error:(NSString *)message {
+    if ([message isEqualToString:@"JavaScript execution terminated."]) {
+        _context = nil;
+        message = @"JavaScript execution timeout.";
+    }
     [CSNotificationView showInViewController:self
                                        style:CSNotificationViewStyleError
                                      message:message];
@@ -133,6 +159,7 @@ void JSContextGroupSetExecutionTimeLimit(JSContextGroupRef, double limit, JSShou
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    _context = nil;
 }
 
 @end

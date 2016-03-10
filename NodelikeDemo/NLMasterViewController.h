@@ -17,6 +17,7 @@
 @property NSString *jsRuntime;
 
 @property JSContext *context;
+@property id logger;
 
 - (void)executeJS:(NSString *)code;
 
